@@ -11,7 +11,19 @@ app.use(cors());
 app.use('/file-metadata-microservice', express.static(path.join(__dirname, '')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head><title>File Metadata</title></head>
+      <body>
+        <h1>Upload a File</h1>
+        <form enctype="multipart/form-data" method="POST" action="/api/fileanalyse">
+          <input type="file" name="upfile" />
+          <input type="submit" value="Upload" />
+        </form>
+      </body>
+    </html>
+  `);
 });
 
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
