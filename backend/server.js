@@ -8,13 +8,14 @@ const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
-app.use('/static', express.static(path.join(__dirname, '../frontend')));
+app.use('/file-metadata-microservice', express.static(path.join(__dirname, '')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
+  console.log(req.file); // Log the file
   const file = req.file;
   if (!file) return res.status(400).json({ error: 'No file uploaded' });
   
